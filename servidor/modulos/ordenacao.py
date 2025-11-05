@@ -1,7 +1,14 @@
 import ctypes
+import platform
 from pathlib import Path
 
-LIB_PATH = Path(__file__).resolve().parents[2] / "c_module" / "modulos.so"
+# Define o nome do arquivo da biblioteca compartilhada com base no sistema operacional
+if platform.system() == "Windows":
+    lib_name = "modulos.dll"
+else:
+    lib_name = "modulos.so"
+
+LIB_PATH = Path(__file__).resolve().parents[2] / "c_module" / lib_name
 lib = ctypes.CDLL(str(LIB_PATH))
 
 # Define os tipos de argumento e retorno das funções em C
